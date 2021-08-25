@@ -9,18 +9,17 @@ router.get("/api/", (req, res) => res.json({message: "Hola mundo"}));
 
 /*register*/
 router.post(_APIURI + "register/", async (req, res) => {
-    
-    console.log("entrando a endpoint");
+
+
     const {email, password} = req.body;
     const newUser = new User({email: email, password: password});
-    if (!User.findOne({email})) {
+
         await newUser.save();
         /*creacion del token*/
         const token = jwt.sign({id: newUser._id, email: newUser.email}, _SECRET, {expiresIn: "1day"});
 
         return res.status(200).json({token});
 
-    }
     return res.status(409).json({message: "the email currently in use"})
 
 });
