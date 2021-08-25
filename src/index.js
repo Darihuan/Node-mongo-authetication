@@ -5,14 +5,15 @@ require('dotenv').config({ path: './db.env' });
 
 /*inicializaciones*/
 const app=express();
-//const PORT=process.env['PORT'] || 3000
+const PORT=process.env.PORT || 3000
+console.log(PORT)
 const mongo=require('./database');
 app.use(express.json());
 app.use(require('./endpoints/index'));
 /*servidor*/
 
-app.listen(1203,()=>{
+app.listen(PORT,()=>{
     console.log("=====================")
-    console.log("SERVER ON PORT:",1203)
+    console.log("SERVER ON PORT:",PORT)
     console.log("=====================")
 })
