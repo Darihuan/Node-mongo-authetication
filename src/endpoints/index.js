@@ -9,7 +9,8 @@ router.get("/api/", (req, res) => res.json({message: "Hola mundo"}));
 
 /*register*/
 router.post(_APIURI + "register/", async (req, res) => {
-
+    
+    console.log("entrando a endpoint");
     const {email, password} = req.body;
     const newUser = new User({email: email, password: password});
     if (!User.findOne({email})) {
@@ -20,7 +21,7 @@ router.post(_APIURI + "register/", async (req, res) => {
         return res.status(200).json({token});
 
     }
-   return res.status(409).json({message:"the email currently in use"})
+    return res.status(409).json({message: "the email currently in use"})
 
 });
 
@@ -42,6 +43,7 @@ router.post(_APIURI + "login/", async (req, res) => {
 });
 
 router.get(_APIURI + "datos/", verifyToken, (req, res) => {
+
     res.status(200).json([{id: 1, datos: "datos1"}, {id: 2, datos: "datos2"}, {id: 3, datos: "datos3"}]);
 })
 
