@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://authenticacion:formulario@sandbox.aqktt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const USER=process.env['USER'];
+const PASS=process.env['PASS'];
+const mongoURI = `mongodb+srv://${USER}:${PASS}@sandbox.aqktt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(mongoURI);
 
 try {

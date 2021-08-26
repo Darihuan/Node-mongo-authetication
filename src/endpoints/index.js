@@ -3,7 +3,7 @@ const router = Router();
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const _APIURI = "/api/v0/user/";
-const _SECRET = "WALRUS";
+const _SECRET = process.env['PORT'] || 'WALRUS'
 
 router.get("/api/", (req, res) => res.json({message: "Hola mundo"}));
 
@@ -14,11 +14,12 @@ router.post(_APIURI + "register/", async (req, res) => {
     const {email, password} = req.body;
     const newUser = new User({email: email, password: password});
 
-        await newUser.save();
-        /*creacion del token*/
-        const token = jwt.sign({id: newUser._id, email: newUser.email}, _SECRET, {expiresIn: "1day"});
 
-        return res.status(200).json({token});
+    await newUser.save({email})
+    /*creacion del token*/
+    const token = jwt.sign({id: newUser._id, email: newUser.email}, _SECRET, {expiresIn: "1day"});
+
+    return res.status(200).json({token});
 
     return res.status(409).json({message: "the email currently in use"})
 
