@@ -2,7 +2,7 @@
 const express= require('express');
 require('dotenv').config({ path: './db.env' });
 
-
+c.Header("Access-Control-Allow-Origin", "*")
 /*inicializaciones*/
 const app=express();
 
